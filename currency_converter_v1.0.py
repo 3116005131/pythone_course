@@ -5,26 +5,32 @@
     日期：2019/3/21
 """
 
+
+def convert_currency(im, er):
+    """
+        汇率兑换函数
+    """
+    out = im * er
+    return out
+
+
 # 汇率
 USD_VS_RMB = 6.77
-
-# 人民币输入
 currency_str_value = input("请输入带单位的货币金额")
-
 # 获取货币单位
 unit = currency_str_value[-3:]
-
 if unit == "CNY":
-    # 获取的是人民币
-    rmb_str_value = currency_str_value[:-3]
-    rmb_value = eval(rmb_str_value)
-    usd_value = rmb_value / USD_VS_RMB
-    print("美元金额（USD）：", usd_value)
+    exchange_rate = USD_VS_RMB
 elif unit == "USD":
-    # 获取的是美元
-    usd_str_value = currency_str_value[:-3]
-    usd_value = eval(usd_str_value)
-    rmb_value = usd_value * USD_VS_RMB
-    print("人民币金额（CNY）:", rmb_value)
+    exchange_rate = 1 / USD_VS_RMB
 else:
-    print("目前版本尚不支持该种货币")
+    exchange_rate = -1
+
+if exchange_rate != -1:
+    in_money = eval(currency_str_value[:-3])
+    # 调用函数
+    out_money = convert_currency(in_money, exchange_rate)
+    print('转换后的金额', out_money)
+else:
+    print('不支持该种货币')
+print('程序已退出')
